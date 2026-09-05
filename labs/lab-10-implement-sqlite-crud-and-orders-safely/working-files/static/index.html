@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Northstar Commerce Operations</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b1220'/%3E%3Cpath d='M16 43V21h8l8 11 8-11h8v22h-8V33l-8 10-8-10v10z' fill='%232dd4bf'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#top" aria-label="Northstar Commerce home"><span>N</span><strong>Northstar</strong></a>
+    <nav aria-label="Dashboard sections">
+      <a class="active" href="#overview">Overview</a>
+      <a href="#catalog">Products</a>
+      <a href="#customers">Customers</a>
+      <a href="#orders">Orders</a>
+      <a href="/docs" target="_blank" rel="noopener">OpenAPI docs</a>
+    </nav>
+    <p class="stack">HTML/CSS/JS<br>FastAPI · OpenAPI<br>SQLite</p>
+  </aside>
+
+  <div class="shell" id="top">
+    <header class="topbar">
+      <div><p class="eyebrow">Commerce operations</p><h1>Good morning, API builder.</h1></div>
+      <label class="key-field">Demo API key<input id="api-key" value="course-demo-key" autocomplete="off"></label>
+    </header>
+
+    <main>
+      <section id="overview" aria-labelledby="overview-title">
+        <div class="section-title"><div><p class="eyebrow">GET /api/v1/dashboard</p><h2 id="overview-title">Live overview</h2></div><button id="refresh" class="ghost">Refresh data</button></div>
+        <div class="kpi-grid">
+          <article><span>Products</span><strong id="kpi-products">-</strong><small>catalog records</small></article>
+          <article><span>Customers</span><strong id="kpi-customers">-</strong><small>CRM contacts</small></article>
+          <article><span>Orders</span><strong id="kpi-orders">-</strong><small>transactions</small></article>
+          <article class="accent"><span>Revenue</span><strong id="kpi-revenue">-</strong><small>non-cancelled orders</small></article>
+        </div>
+      </section>
+
+      <p id="status" class="status" role="status" aria-live="polite">Connecting to the FastAPI service…</p>
+
+      <section id="catalog" class="panel" aria-labelledby="catalog-title">
+        <div class="section-title"><div><p class="eyebrow">GET + POST /api/v1/products</p><h2 id="catalog-title">Product catalog</h2></div><span id="product-count" class="pill">0 products</span></div>
+        <form id="product-form" class="form-grid">
+          <label>SKU<input id="sku" required pattern="[A-Z0-9\-]{3,24}" placeholder="NS-BAG-04"></label>
+          <label>Product name<input id="product-name" required minlength="3" placeholder="Transit work bag"></label>
+          <label>Price (SGD)<input id="price" required min="0" step="0.01" type="number" placeholder="98.00"></label>
+          <label>Stock<input id="stock" required min="0" type="number" value="10"></label>
+          <button type="submit">Add product</button>
+        </form>
+        <div id="product-list" class="product-grid"></div>
+      </section>
+
+      <div class="two-column">
+        <section id="customers" class="panel" aria-labelledby="customer-title">
+          <div class="section-title"><div><p class="eyebrow">CRM · POST /api/v1/customers</p><h2 id="customer-title">Customers</h2></div></div>
+          <form id="customer-form" class="stack-form">
+            <label>Name<input id="customer-name" required minlength="2" placeholder="Jamie Tan"></label>
+            <label>Email<input id="customer-email" required type="email" placeholder="jamie@example.com"></label>
+            <label>Company<input id="customer-company" placeholder="Harbour Design"></label>
+            <button type="submit">Create customer</button>
+          </form>
+          <div id="customer-list" class="record-list"></div>
+        </section>
+
+        <section id="orders" class="panel" aria-labelledby="order-title">
+          <div class="section-title"><div><p class="eyebrow">Transaction · POST /api/v1/orders</p><h2 id="order-title">Place an order</h2></div></div>
+          <form id="order-form" class="stack-form">
+            <label>Customer<select id="order-customer" required></select></label>
+            <label>Product<select id="order-product" required></select></label>
+            <label>Quantity<input id="order-quantity" required type="number" min="1" max="100" value="1"></label>
+            <button type="submit">Create paid order</button>
+          </form>
+          <div id="order-list" class="record-list"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer>Powered by <a href="https://www.tertiaryinfotech.com/" target="_blank" rel="noopener">Tertiary Infotech Academy Pte Ltd</a></footer>
+  </div>
+
+  <template id="product-template">
+    <article class="product-card"><div class="product-visual"></div><div class="product-body"><span class="product-sku"></span><h3 class="product-name"></h3><p class="product-price"></p><div class="product-meta"><span class="product-stock"></span><span class="product-status"></span></div></div></article>
+  </template>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

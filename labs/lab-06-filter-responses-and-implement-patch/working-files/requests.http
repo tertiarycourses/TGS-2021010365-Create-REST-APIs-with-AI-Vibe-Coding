@@ -1,0 +1,22 @@
+@baseUrl = http://127.0.0.1:8000
+@apiKey = course-demo-key
+
+### Liveness
+GET {{baseUrl}}/health/live
+
+### List products
+GET {{baseUrl}}/api/v1/products?status=active&limit=20
+
+### Create a product
+POST {{baseUrl}}/api/v1/products
+Content-Type: application/json
+X-API-Key: {{apiKey}}
+
+{"sku":"NS-PEN-04","name":"Studio Marker Set","description":"Synthetic classroom inventory item","price_cents":3200,"stock_quantity":24,"status":"active"}
+
+### Create an order
+POST {{baseUrl}}/api/v1/orders
+Content-Type: application/json
+X-API-Key: {{apiKey}}
+
+{"customer_id":1,"items":[{"product_id":1,"quantity":2}]}

@@ -1,0 +1,17 @@
+.env
+.env.*
+.claude/
+.codex/
+assessment/
+reference/
+courseware/assets/
+courseware/archive/
+qa/
+tmp/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.db
+!labs/**/mock-database.sqlite
+.venv/
+.DS_Store

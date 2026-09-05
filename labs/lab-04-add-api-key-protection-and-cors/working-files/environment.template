@@ -1,0 +1,4 @@
+APP_API_KEY=replace-with-a-local-demo-key
+APP_DATABASE=northstar.db
+APP_ALLOWED_ORIGINS=http://127.0.0.1:8000
+APP_SEED_DEMO=1
